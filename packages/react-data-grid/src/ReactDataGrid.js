@@ -122,7 +122,8 @@ class ReactDataGrid extends React.Component {
     minColumnWidth: PropTypes.number,
     columnEquality: PropTypes.func,
     onColumnResize: PropTypes.func,
-    enableSummary: PropTypes.bool
+    enableSummary: PropTypes.bool,
+    dataChanged: PropTypes.bool
   };
 
   static defaultProps = {
@@ -146,7 +147,8 @@ class ReactDataGrid extends React.Component {
     onBeforeEdit: () => {},
     minColumnWidth: 80,
     columnEquality: ColumnMetrics.sameColumn,
-    enableSummary: false
+    enableSummary: false,
+    dataChanged: false
   };
 
   constructor(props, context) {

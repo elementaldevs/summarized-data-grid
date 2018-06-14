@@ -61,7 +61,8 @@ class Grid extends React.Component {
     getValidFilterValues: PropTypes.func,
     rowGroupRenderer: PropTypes.func,
     overScan: PropTypes.object,
-    enableSummary: PropTypes.bool
+    enableSummary: PropTypes.bool,
+    dataChanged: PropTypes.bool.isRequired
   };
 
   static defaultProps = {
@@ -202,6 +203,7 @@ class Grid extends React.Component {
             rowGetter={this.props.rowGetter}
             rowsCount={this.props.rowsCount}
             onScroll={this.onScroll}
+            dataChanged={this.props.dataChanged}
           />
         }
       </div>

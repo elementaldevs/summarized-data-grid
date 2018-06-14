@@ -20,7 +20,9 @@ class SummaryRow extends Component {
     filterable: PropTypes.bool,
     onFilterChange: PropTypes.func,
     resizing: PropTypes.object,
-    onScroll: PropTypes.func
+    onScroll: PropTypes.func,
+    rowsCount: PropTypes.number.isRequired,
+    dataChanged: PropTypes.bool.isRequired
   };
 
   shouldComponentUpdate(
@@ -30,6 +32,8 @@ class SummaryRow extends Component {
       nextProps.width !== this.props.width
       || nextProps.height !== this.props.height
       || nextProps.columns !== this.props.columns
+      || nextProps.rowsCount !== this.props.rowsCount
+      || (nextProps.rowsCount === this.props.rowsCount && nextProps.dataChanged)
     );
   }
 

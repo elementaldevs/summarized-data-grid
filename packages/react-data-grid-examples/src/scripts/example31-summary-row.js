@@ -64,7 +64,6 @@ SummaryAverage.propTypes = {
 
 const SummarySum = (props) => {
   const { rowsCount, rowGetter, column } = props;
-
   return (
     <div>{sum(rowsCount, rowGetter, column)}</div>
   );
@@ -126,7 +125,7 @@ const getRandomDate = (start, end) => {
 
 const createRows = () => {
   let rows = [];
-  for (let i = 1; i < 100; i++) {
+  for (let i = 1; i < 5; i++) {
     rows.push({
       id: i,
       task: 'Task ' + i,
@@ -141,25 +140,59 @@ const createRows = () => {
   return rows;
 };
 
+
+const createOtherRows = () => {
+  let rows = [];
+  for (let i = 1; i < 5; i++) {
+    rows.push({
+      id: i,
+      task: 'Task ' + i + 1,
+      complete: Math.min(300, Math.round(Math.random() * 50)),
+      priority: ['Critical', 'High', 'Medium', 'Low'][Math.floor((Math.random() * 5) + 1)],
+      issueType: ['Bug', 'Improvement', 'Epic', 'Story'][Math.floor((Math.random() * 5) + 1)],
+      startDate: getRandomDate(new Date(2055, 6, 11), new Date()),
+      completeDate: getRandomDate(new Date(), new Date(2056, 0, 13))
+    });
+  }
+
+  return rows;
+};
+
 class Example extends React.Component {
   constructor(props) {
     super(props);
     let rows = createRows();
-    this.state = { rows };
+    this.state = { rows, dataChanged: false };
   }
 
   rowGetter = (i) => {
     return this.state.rows[i];
   };
 
+  componentWillUpdate(_, nextState) {
+    if (nextState.rows !== this.state.rows) {
+      this.setState({
+        dataChanged: true
+      });
+    }
+  }
+
   render() {
-    return  (
-      <ReactDataGrid
-        columns={colunsDef}
-        rowGetter={this.rowGetter}
-        rowsCount={this.state.rows.length}
-        enableSummary
-        minHeight={500} />);
+    return (
+      <div>
+        <ReactDataGrid
+          columns={colunsDef}
+          rowGetter={this.rowGetter}
+          rowsCount={this.state.rows.length}
+          enableSummary
+          minHeight={500}
+          dataChanged={this.state.dataChanged}
+        />
+        <button onClick={() => this.setState({ rows: createOtherRows()})}>
+          Change dataset
+        </button>
+      </div>
+    );
   }
 }
 

@@ -26,7 +26,8 @@ class Summary extends Component {
     onScroll: PropTypes.func,
     cellMetaData: PropTypes.shape(cellMetaDataShape),
     rowGetter: PropTypes.func,
-    rowsCount: PropTypes.number
+    rowsCount: PropTypes.number,
+    dataChanged: PropTypes.bool.isRequired
   };
 
   state: {resizing: any} = {resizing: null};
@@ -39,7 +40,8 @@ class Summary extends Component {
     let update = !(ColumnMetrics.sameColumns(this.props.columnMetrics.columns, nextProps.columnMetrics.columns, ColumnMetrics.sameColumn))
     || this.props.totalWidth !== nextProps.totalWidth
     || (this.state.resizing !== nextState.resizing)
-    || (this.props.rowsCount !== nextProps.rowsCount);
+    || (this.props.rowsCount !== nextProps.rowsCount)
+    || (this.props.rowsCount === nextProps.rowsCount && nextProps.dataChanged);
     return update;
   }
 
@@ -102,6 +104,7 @@ class Summary extends Component {
       onScroll={this.props.onScroll}
       rowGetter={this.props.rowGetter}
       rowsCount={this.props.rowsCount}
+      dataChanged={this.props.dataChanged}
     />);
   };
 
@@ -148,7 +151,6 @@ class Summary extends Component {
       'react-grid-Header': true,
       'react-grid-Header--resizing': !!this.state.resizing
     });
-
     return (
       <div {...this.getKnownDivProps()} style={this.getStyle()} className={className}>
         {this.getSummaryRow()}
