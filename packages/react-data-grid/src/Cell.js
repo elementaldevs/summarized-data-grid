@@ -159,12 +159,20 @@ class Cell extends React.Component {
   };
 
   getStyle = () => {
+    const {
+      width,
+      left,
+      background_color,
+      color
+    } = this.props.column;
     let style = {
       position: 'absolute',
-      width: this.props.column.width,
+      width,
       height: this.props.height,
-      left: this.props.column.left,
-      contain: 'layout'
+      left,
+      contain: 'layout',
+      backgroundColor: background_color || '#e0e0e0',
+      color
     };
     return style;
   };
@@ -511,6 +519,7 @@ class Cell extends React.Component {
 
     let style = this.getStyle();
 
+    console.log(style);
     let className = this.getCellClass();
 
     const cellActions = this.getCellActions();
@@ -528,7 +537,13 @@ class Cell extends React.Component {
 
 
     return (
-      <div {...this.getKnownDivProps() } className={className} style={style} {...events} ref={(node) => { this.node = node; }}>
+      <div
+        {...this.getKnownDivProps()}
+        className={className}
+        style={style}
+        {...events}
+        ref={(node) => { this.node = node; }}
+      >
         {cellActions}
         {cellContent}
         {dragHandle}

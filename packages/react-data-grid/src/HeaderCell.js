@@ -68,15 +68,23 @@ class HeaderCell extends React.Component {
   };
 
   getStyle = (): {width:number; left: number; display: string; position: string; overflow: string; height: number; margin: number; textOverflow: string; whiteSpace: string } => {
+    const {
+      width,
+      left,
+      background_color,
+      color
+    } = this.props.column;
     return {
-      width: this.props.column.width,
-      left: this.props.column.left,
+      width,
+      left,
       display: 'inline-block',
       position: 'absolute',
       height: this.props.height,
       margin: 0,
       textOverflow: 'ellipsis',
-      whiteSpace: 'nowrap'
+      whiteSpace: 'nowrap',
+      backgroundColor: background_color || '#e0e0e0',
+      color
     };
   };
 

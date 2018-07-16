@@ -37,7 +37,9 @@ class SummaryCell extends Component {
       height: this.props.height,
       margin: 0,
       textOverflow: 'ellipsis',
-      whiteSpace: 'nowrap'
+      whiteSpace: 'nowrap',
+      backgroundColor: this.props.column.background_color || '#e0e0e0',
+      color: this.props.column.color
     };
   };
 
