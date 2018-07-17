@@ -79,7 +79,14 @@ class Row extends React.Component {
     let CellRenderer = this.props.cellRenderer;
     const { colVisibleStart, colVisibleEnd, idx, cellMetaData } = this.props;
     const { key, formatter, locked } = column;
-    const baseCellProps = { key: `${key}-${idx}`, idx: i, rowIdx: idx, height: this.getRowHeight(), column, cellMetaData };
+    const baseCellProps = {
+      key: `${key}-${idx}`,
+      idx: i,
+      rowIdx: idx,
+      height: this.getRowHeight(),
+      column,
+      cellMetaData
+    };
 
     if ((i < colVisibleStart || i > colVisibleEnd) && !locked) {
       return <OverflowCell ref={(node) => this[key] = node} {...baseCellProps} />;
@@ -206,12 +213,12 @@ class Row extends React.Component {
 
     let cells = this.getCells();
     return (
-      <div {...this.getKnownDivProps() } className={className} style={style} onDragEnter={this.handleDragEnter} >
+      <div {...this.getKnownDivProps()} className={className} style={style} onDragEnter={this.handleDragEnter} >
         {
           React.isValidElement(this.props.row) ?
             this.props.row : cells
         }
-      </div >
+      </div>
     );
   }
 }
