@@ -41,7 +41,7 @@ class HeaderCell extends React.Component {
       }
     });
     if (maxWidth && onResizeEnd) {
-      const paddingWidth = 16;
+      const paddingWidth = 20;
       onResizeEnd(column, maxWidth + paddingWidth);
     }
   }
