@@ -28,6 +28,24 @@ class HeaderCell extends React.Component {
 
   state: {resizing: boolean} = {resizing: false};
 
+  onDragClick = () => {
+    const { column, onResizeEnd } = this.props;
+    const cellName = `cell-${column.key}`;
+    const cells = document.getElementsByClassName(cellName);
+    if (!cells) return;
+    let maxWidth = null;
+    Array.from(cells).forEach((cell) => {
+      if (cell) {
+        const width = cell.offsetWidth;
+        if (maxWidth < width) maxWidth = width;
+      }
+    });
+    if (maxWidth && onResizeEnd) {
+      const paddingWidth = 16;
+      onResizeEnd(column, maxWidth + paddingWidth);
+    }
+  }
+
   onDragStart = (e: SyntheticMouseEvent) => {
     this.setState({resizing: true});
     // need to set dummy data for FF
@@ -102,6 +120,7 @@ class HeaderCell extends React.Component {
       onDrag={this.onDrag}
       onDragStart={this.onDragStart}
       onDragEnd={this.onDragEnd}
+      onClick={this.onDragClick}
       />);
     }
     let className = joinClasses({
