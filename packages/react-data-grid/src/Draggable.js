@@ -12,7 +12,8 @@ class Draggable extends React.Component {
     onDragEnd: PropTypes.func,
     onDrag: PropTypes.func,
     component: PropTypes.oneOfType([PropTypes.func, PropTypes.constructor]),
-    style: PropTypes.object
+    style: PropTypes.object,
+    onClick: PropTypes.func
   };
 
   static defaultProps = {
@@ -81,7 +82,9 @@ class Draggable extends React.Component {
       <div {...this.getKnownDivProps()}
         onMouseDown={this.onMouseDown}
         onTouchStart={this.onMouseDown}
-        className="react-grid-HeaderCell__draggable" />
+        className="react-grid-HeaderCell__draggable"
+        onClick={this.props.onClick}
+      />
     );
   }
 }
