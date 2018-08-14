@@ -166,12 +166,20 @@ class Cell extends React.Component {
   };
 
   getStyle = () => {
+    const {
+      width,
+      left,
+      background_color,
+      color
+    } = this.props.column;
     let style = {
       position: 'absolute',
-      width: this.props.column.width,
+      width,
       height: this.props.height,
-      left: this.props.column.left,
-      contain: 'layout'
+      left,
+      contain: 'layout',
+      backgroundColor: background_color,
+      color
     };
     return style;
   };
@@ -527,7 +535,6 @@ class Cell extends React.Component {
     let className = this.getCellClass();
 
     const cellActions = this.getCellActions();
-
     const cellContent = this.props.children || this.renderCellContent({
       value: this.props.value,
       column: this.props.column,
@@ -539,9 +546,14 @@ class Cell extends React.Component {
     let events = this.getEvents();
     const tooltip = this.props.tooltip ? (<span className="cell-tooltip-text">{this.props.tooltip}</span>) : null;
 
-
     return (
-      <div {...this.getKnownDivProps() } className={className} style={style} {...events} ref={(node) => { this.node = node; }}>
+      <div
+        {...this.getKnownDivProps()}
+        className={className}
+        style={style}
+        {...events}
+        ref={(node) => { this.node = node; }}
+      >
         {cellActions}
         {cellContent}
         {dragHandle}
