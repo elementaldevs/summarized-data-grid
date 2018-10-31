@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import BaseSummaryCell from './SummaryCell';
 import createObjectWithProperties from './createObjectWithProperties';
 import getScrollbarSize from './getScrollbarSize';
-
+import columnUtils from './ColumnUtils';
 const knownDivPropertyKeys = ['width', 'height', 'style', 'onScroll'];
 
 class SummaryRow extends Component {
@@ -75,7 +75,7 @@ class SummaryRow extends Component {
           onResizeEnd={this.props.onColumnResizeEnd}
         />
       );
-      if (column.locked) {
+      if (columnUtils.isFrozen(column)) {
         lockedCells.push(cell);
       } else {
         cells.push(cell);
@@ -86,7 +86,7 @@ class SummaryRow extends Component {
 
   setScrollLeft = (scrollLeft: number) => {
     this.props.columns.forEach( (column, i) => {
-      if (column.locked) {
+      if (columnUtils.isFrozen(column)) {
         this.cells[i].setScrollLeft(scrollLeft);
       } else {
         if (this.cells[i] && this.cells[i].removeScroll) {

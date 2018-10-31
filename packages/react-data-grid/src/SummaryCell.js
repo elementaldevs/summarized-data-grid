@@ -66,7 +66,7 @@ class SummaryCell extends Component {
     let className = joinClasses({
       'react-grid-HeaderCell': true,
       'react-grid-HeaderCell--resizing': this.state.resizing,
-      'react-grid-HeaderCell--locked': this.props.column.locked
+      'react-grid-HeaderCell--frozen': this.props.column.locked
     });
     className = joinClasses(className, this.props.className, this.props.column.cellClass);
     let cell = this.getCell();

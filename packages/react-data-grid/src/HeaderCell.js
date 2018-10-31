@@ -95,7 +95,7 @@ class HeaderCell extends React.Component {
     const {
       width,
       left,
-      background_color,
+      background_color, /* eslint-disable camelcase */
       color
     } = this.props.column;
     return {

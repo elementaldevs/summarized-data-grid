@@ -138,7 +138,7 @@ class Cell extends React.PureComponent {
     const {
       width,
       left,
-      background_color,
+      background_color, /* eslint-disable camelcase */
       color
     } = this.props.column;
     let style = {
@@ -146,7 +146,6 @@ class Cell extends React.PureComponent {
       width,
       height: this.props.height,
       left,
-      contain: 'layout',
       backgroundColor: background_color,
       color
     };

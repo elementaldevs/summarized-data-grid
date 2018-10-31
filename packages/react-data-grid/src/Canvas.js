@@ -366,7 +366,6 @@ class Canvas extends React.PureComponent {
           scrollLeft: this._scroll.scrollLeft
         });
       });
-
     if (rowOverscanStartIdx > 0) {
       rows.unshift(this.renderPlaceholder('top', rowOverscanStartIdx * rowHeight));
     }
