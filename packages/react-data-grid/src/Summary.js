@@ -7,7 +7,7 @@ import ColumnMetrics from'./ColumnMetrics';
 import ColumnUtils from'./ColumnUtils';
 import getScrollbarSize  from'./getScrollbarSize';
 import createObjectWithProperties from'./createObjectWithProperties';
-import cellMetaDataShape from './PropTypeShapes/CellMetaDataShape';
+import cellMetaDataShape from 'common/prop-shapes/CellMetaDataShape';
 import SummaryRow from './SummaryRow';
 
 type Column = {

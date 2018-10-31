@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import joinClasses from 'classnames';
-import ExcelColumn from './PropTypeShapes/ExcelColumn';
+import ExcelColumn from 'common/prop-shapes/ExcelColumn';
 import ResizeHandle from './ResizeHandle';
 
 class SummaryCell extends Component {
