@@ -14,7 +14,6 @@ class SimpleCellFormatter extends React.Component {
   render() {
     return (
       <div
-        title={this.props.value}
         className={this.props.className}
         style={{ width: 'max-content' }}
       >
