@@ -25,9 +25,7 @@ class SummaryRow extends Component {
     dataChanged: PropTypes.bool.isRequired
   };
 
-  shouldComponentUpdate(
-    nextProps: {width: ?(number | string); height: number; columns: Array<ExcelColumn>; onColumnResize: ?any},
-  ): boolean {
+  shouldComponentUpdate(nextProps) {
     return (
       nextProps.width !== this.props.width
       || nextProps.height !== this.props.height
@@ -56,7 +54,7 @@ class SummaryRow extends Component {
     return <div />;
   }
 
-  getCells = (): Array<BaseSummaryCell> => {
+  getCells = () => {
     const cells = [];
     const lockedCells = [];
 
@@ -84,7 +82,7 @@ class SummaryRow extends Component {
     return cells.concat(lockedCells);
   }
 
-  setScrollLeft = (scrollLeft: number) => {
+  setScrollLeft = (scrollLeft) => {
     this.props.columns.forEach( (column, i) => {
       if (columnUtils.isFrozen(column)) {
         this.cells[i].setScrollLeft(scrollLeft);
@@ -100,8 +98,8 @@ class SummaryRow extends Component {
     return createObjectWithProperties(this.props, knownDivPropertyKeys);
   };
 
-  render(): ?ReactElement {
-    let cellsStyle = {
+  render() {
+    const cellsStyle = {
       width: this.props.width ? (this.props.width + getScrollbarSize()) : '100%',
       height: this.props.height,
       whiteSpace: 'nowrap',
@@ -109,7 +107,7 @@ class SummaryRow extends Component {
       overflowY: 'hidden'
     };
 
-    let cells = this.getCells();
+    const cells = this.getCells();
     return (
       <div
         {...this.getKnownDivProps()}

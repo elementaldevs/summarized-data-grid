@@ -10,10 +10,6 @@ import createObjectWithProperties from'./createObjectWithProperties';
 import cellMetaDataShape from 'common/prop-shapes/CellMetaDataShape';
 import SummaryRow from './SummaryRow';
 
-type Column = {
-  width: number
-}
-
 // The list of the propTypes that we want to include in the Summary div
 const knownDivPropertyKeys = ['height', 'onScroll'];
 
@@ -30,14 +26,16 @@ class Summary extends Component {
     dataChanged: PropTypes.bool.isRequired
   };
 
-  state: {resizing: any} = {resizing: null};
+  state = {
+    resizing: null
+  };
 
-  componentWillReceiveProps() {
-    this.setState({resizing: null});
+  componentDidUpdate() {
+    this.cleanResizeHandle();
   }
 
-  shouldComponentUpdate(nextProps: any, nextState: any): boolean {
-    let update = !(ColumnMetrics.sameColumns(this.props.columnMetrics.columns, nextProps.columnMetrics.columns, ColumnMetrics.sameColumn))
+  shouldComponentUpdate(nextProps, nextState) {
+    const update = !(ColumnMetrics.sameColumns(this.props.columnMetrics.columns, nextProps.columnMetrics.columns, ColumnMetrics.sameColumn))
     || this.props.totalWidth !== nextProps.totalWidth
     || (this.state.resizing !== nextState.resizing)
     || (this.props.rowsCount !== nextProps.rowsCount)
@@ -45,13 +43,15 @@ class Summary extends Component {
     return update;
   }
 
-  onColumnResize = (column: Column, width: number) => {
-    let state = this.state.resizing || this.props;
+  cleanResizeHandle = () => this.setState({ resizing: null })
 
-    let pos = this.getColumnPosition(column);
+  onColumnResize = (column, width) => {
+    const state = this.state.resizing || this.props;
+
+    const pos = this.getColumnPosition(column);
 
     if (pos != null) {
-      let resizing = {
+      const resizing = {
         columnMetrics: shallowCloneObject(state.columnMetrics)
       };
       resizing.columnMetrics = ColumnMetrics.resizeColumn(
@@ -63,27 +63,27 @@ class Summary extends Component {
       }
 
       resizing.column = ColumnUtils.getColumn(resizing.columnMetrics.columns, pos);
-      this.setState({resizing});
+      this.setState({ resizing });
     }
   };
 
-  onColumnResizeEnd = (column: Column, width: number) => {
-    let pos = this.getColumnPosition(column);
+  onColumnResizeEnd = (column, width) => {
+    const pos = this.getColumnPosition(column);
     if (pos !== null && this.props.onColumnResize) {
       this.props.onColumnResize(pos, width || column.width);
     }
   };
 
-  getSummaryRow = (): Array<SummaryRow> => {
-    let columnMetrics = this.getColumnMetrics();
+  getSummaryRow = () => {
+    const columnMetrics = this.getColumnMetrics();
     let resizeColumn;
     if (this.state.resizing) {
       resizeColumn = this.state.resizing.column;
     }
-    let rowHeight = 'auto';
-    let scrollbarSize = getScrollbarSize() > 0 ? getScrollbarSize() : 0;
-    let updatedWidth = isNaN(this.props.totalWidth - scrollbarSize) ? this.props.totalWidth : this.props.totalWidth - scrollbarSize;
-    let summaryRowStyle = {
+    const rowHeight = 'auto';
+    const scrollbarSize = getScrollbarSize() > 0 ? getScrollbarSize() : 0;
+    const updatedWidth = isNaN(this.props.totalWidth - scrollbarSize) ? this.props.totalWidth : this.props.totalWidth - scrollbarSize;
+    const summaryRowStyle = {
       position: 'absolute',
       left: 0,
       bottom: 0,
@@ -118,8 +118,8 @@ class Summary extends Component {
     return columnMetrics;
   };
 
-  getColumnPosition = (column: Column): ?number => {
-    let columnMetrics = this.getColumnMetrics();
+  getColumnPosition = (column) => {
+    const columnMetrics = this.getColumnMetrics();
     let pos = -1;
     columnMetrics.columns.forEach((c, idx) => {
       if (c.key === column.key) {
@@ -129,15 +129,15 @@ class Summary extends Component {
     return pos === -1 ? null : pos;
   };
 
-  getStyle = (): {position: string; height: number} => {
+  getStyle = () => {
     return {
       position: 'relative',
       height: this.props.height
     };
   };
 
-  setScrollLeft = (scrollLeft: number) => {
-    let node = ReactDOM.findDOMNode(this.summaryRow);
+  setScrollLeft = (scrollLeft) => {
+    const node = ReactDOM.findDOMNode(this.summaryRow);
     node.scrollLeft = scrollLeft;
     this.summaryRow.setScrollLeft(scrollLeft);
   };
@@ -146,8 +146,8 @@ class Summary extends Component {
     return createObjectWithProperties(this.props, knownDivPropertyKeys);
   };
 
-  render(): ?ReactElement {
-    let className = joinClasses({
+  render() {
+    const className = joinClasses({
       'react-grid-Header': true,
       'react-grid-Header--resizing': !!this.state.resizing
     });

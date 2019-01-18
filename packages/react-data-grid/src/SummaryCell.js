@@ -15,20 +15,22 @@ class SummaryCell extends Component {
     className: PropTypes.string
   };
 
-  state: {resizing: boolean} = {resizing: false};
+  state = {
+    resizing: false
+  };
 
   getCell = () => {
     if (React.isValidElement(this.props.renderer)) {
       // if it is a string, it's an HTML element, and column is not a valid property, so only pass height
       if (typeof this.props.renderer.type === 'string') {
-        return React.cloneElement(this.props.renderer, {height: this.props.height});
+        return React.cloneElement(this.props.renderer, { height: this.props.height });
       }
-      return React.cloneElement(this.props.renderer, {column: this.props.column, height: this.props.height});
+      return React.cloneElement(this.props.renderer, { column: this.props.column, height: this.props.height });
     }
-    return this.props.renderer({column: this.props.column});
+    return this.props.renderer({ column: this.props.column });
   };
 
-  getStyle = (): {width:number; left: number; display: string; position: string; overflow: string; height: number; margin: number; textOverflow: string; whiteSpace: string } => {
+  getStyle = () => {
     return {
       width: this.props.column.width,
       left: this.props.column.left,
@@ -43,7 +45,7 @@ class SummaryCell extends Component {
     };
   };
 
-  setScrollLeft = (scrollLeft: number) => {
+  setScrollLeft = (scrollLeft) => {
     const node = ReactDOM.findDOMNode(this);
     node.style.webkitTransform = `translate3d(${scrollLeft}px, 0px, 0px)`;
     node.style.transform = `translate3d(${scrollLeft}px, 0px, 0px)`;
@@ -58,7 +60,7 @@ class SummaryCell extends Component {
     }
   };
 
-  render(): ?ReactElement {
+  render() {
     let resizeHandle;
     if (this.props.column.resizable) {
       resizeHandle = (<ResizeHandle />);
@@ -69,7 +71,7 @@ class SummaryCell extends Component {
       'react-grid-HeaderCell--frozen': this.props.column.locked
     });
     className = joinClasses(className, this.props.className, this.props.column.cellClass);
-    let cell = this.getCell();
+    const cell = this.getCell();
     return (
       <div className={className} style={this.getStyle()}>
         {cell}
