@@ -1,9 +1,9 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
+import * as zIndexes from 'common/constants/zIndexes';
 import { sel } from '../../__tests__/utils';
 import CellMask from '../CellMask';
-import zIndexes from 'common/constants/zIndexes';
 
 describe('CellMask', () => {
   const setup = (children) => {
@@ -27,7 +27,7 @@ describe('CellMask', () => {
         height: 30,
         width: 50,
         zIndex: zIndexes.CELL_MASK,
-        transform: `translate(5px, 10px)`
+        transform: 'translate(5px, 10px)'
       })
     );
   });
