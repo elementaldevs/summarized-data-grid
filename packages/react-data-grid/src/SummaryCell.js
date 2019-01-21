@@ -2,13 +2,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import joinClasses from 'classnames';
-import ExcelColumn from 'common/prop-shapes/ExcelColumn';
 import ResizeHandle from './ResizeHandle';
 
 class SummaryCell extends Component {
   static propTypes = {
     renderer: PropTypes.oneOfType([PropTypes.func, PropTypes.element]).isRequired,
-    column: PropTypes.shape(ExcelColumn).isRequired,
+    column: PropTypes.object.isRequired,
     onResize: PropTypes.func.isRequired,
     height: PropTypes.number.isRequired,
     onResizeEnd: PropTypes.func.isRequired,
