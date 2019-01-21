@@ -30,17 +30,14 @@ class Summary extends Component {
     resizing: null
   };
 
-  componentDidUpdate() {
-    this.cleanResizeHandle();
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    const update = !(ColumnMetrics.sameColumns(this.props.columnMetrics.columns, nextProps.columnMetrics.columns, ColumnMetrics.sameColumn))
-    || this.props.totalWidth !== nextProps.totalWidth
-    || (this.state.resizing !== nextState.resizing)
-    || (this.props.rowsCount !== nextProps.rowsCount)
-    || (this.props.rowsCount === nextProps.rowsCount && nextProps.dataChanged);
-    return update;
+  componentDidUpdate(prevProps, prevState) {
+    if (!(ColumnMetrics.sameColumns(prevProps.columnMetrics.columns, prevProps.columnMetrics.columns, ColumnMetrics.sameColumn))
+    || prevProps.totalWidth !== this.props.totalWidth
+    || (prevState.resizing !== this.state.resizing)
+    || (prevProps.rowsCount !== this.props.rowsCount)
+    /* || (prevProps.rowsCount === this.props.rowsCount && this.props.dataChanged)*/) {
+      this.cleanResizeHandle();
+    }
   }
 
   cleanResizeHandle = () => this.setState({ resizing: null })
