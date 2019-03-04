@@ -5,6 +5,12 @@ import ReactDOM from 'react-dom';
 
 class DropDownEditor extends EditorBase {
 
+  constructor(props) {
+    super(props);
+    console.log('Entrei lá no dropdownEditor');
+    console.log('minhas props....', props);
+  }
+
   getInputNode() {
     return ReactDOM.findDOMNode(this);
   }

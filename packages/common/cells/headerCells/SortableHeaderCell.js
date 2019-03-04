@@ -44,7 +44,10 @@ class SortableHeaderCell extends React.Component {
       ASC: '9650',
       DESC: '9660'
     };
-    return this.props.sortDirection === 'NONE' ? '' : String.fromCharCode(unicodeKeys[this.props.sortDirection]);
+    if (this.props.sortDirection === 'NONE') {
+      return <i className="glyphicon glyphicon-sort" />;
+    }
+    return String.fromCharCode(unicodeKeys[this.props.sortDirection]);
   };
 
   render() {

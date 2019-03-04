@@ -1,3 +1,5 @@
+import Immutable from 'immutable';
+
 const isImmutableLoaded = () => typeof Immutable !== 'undefined';
 
 export const isColumnsImmutable = (columns) => {
