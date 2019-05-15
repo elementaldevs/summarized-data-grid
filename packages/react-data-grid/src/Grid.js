@@ -74,7 +74,8 @@ class Grid extends React.Component {
     scrollLeft: PropTypes.number,
     RowsContainer: PropTypes.node,
     enableSummary: PropTypes.bool,
-    dataChanged: PropTypes.bool.isRequired
+    dataChanged: PropTypes.bool.isRequired,
+    editorPortalTarget: PropTypes.instanceOf(Element).isRequired
   };
 
   static defaultProps = {
@@ -148,9 +149,9 @@ class Grid extends React.Component {
   };
 
   render() {
-    const { headerRows } = this.props;
+    const { headerRows, rowHeight, enableSummary } = this.props;
     const EmptyRowsView = this.props.emptyRowsView;
-    let { rowOffsetHeight, rowHeight, enableSummary } = this.props;
+    let { rowOffsetHeight } = this.props;
     rowOffsetHeight = (rowOffsetHeight || rowHeight * headerRows.length) + (enableSummary ? rowOffsetHeight : 0);
 
     return (
@@ -216,6 +217,7 @@ class Grid extends React.Component {
                   onCellRangeSelectionCompleted={this.props.onCellRangeSelectionCompleted}
                   onCommit={this.props.onCommit}
                   RowsContainer={this.props.RowsContainer}
+                  editorPortalTarget={this.props.editorPortalTarget}
                 />
             </div>
         :
